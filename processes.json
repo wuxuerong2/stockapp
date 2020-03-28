@@ -1,0 +1,25 @@
+{
+  "apps" : [
+  {
+    "name"        : "http-server for webui",
+    "script"      : "http-server /root/stockapp/webui/build -p 8080 --cors=*",
+    "log_file"   : "/root/stockapp/webui/http.log",
+    "out_file"   : "/root/stockapp/webui/http.log",
+    "error_file" : "/root/stockapp/webui/http.log"
+  },
+  {
+    "name"        : "http-server for newsui",
+    "script"      : "http-server /root/stockapp/newsui/newsui -p 8082 --cors=*",
+    "log_file"   : "/root/stockapp/newsui/http.log",
+    "out_file"   : "/root/stockapp/newsui/http.log",
+    "error_file" : "/root/stockapp/newsui/http.log"
+  },
+  {
+    "name"        : "http-server for backend",
+    "script"      : "node /root/stockapp/server/server.js",
+    "log_file"   : "/root/stockapp/server/http.log",
+    "error_file" : "/root/stockapp/server/http.log",
+    "out_file"   : "/root/stockapp/server/http.log"
+  }
+  ]
+}
