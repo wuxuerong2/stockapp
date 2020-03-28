@@ -1,7 +1,5 @@
 # HSBC STOCK APP
 
-![image](./image/cap1.PNG)
-
 This is a stock app provide customer to search stock and get stock related inforamtion.
 
 # Technical Stack
@@ -13,169 +11,105 @@ This is a stock app provide customer to search stock and get stock related infor
 
 # Inovivation Point
 
-  - Separate front end page into different indepent module and each module deploy to a dependent http server, which can develop, deploy in parallel.
-  - Get the stock data from spider instead of stock info source API
+  - Front end micro service
+  - Spider API for stock information
 
-You can also:
-  - Import and save files from GitHub, Dropbox, Google Drive and One Drive
-  - Drag and drop markdown and HTML files into Dillinger
-  - Export documents as Markdown, HTML and PDF
+Front End Micro Service:
+>We always feel painful when there are many guys work on same project and wait for master branch to release our change to production. It will be nightmare for a huge project which bind all logic into one component. For backend, we work out a concept "micro service" to solve above problems.This give me tips that why I cannot do this in front end development
 
-Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email.  As [John Gruber] writes on the [Markdown site][df1]
+>In the stock app project I separate this app into only two parts for demo purpose. In the stock app, it has a container which is used for loading other module from other server. The news module had been package as UMD module and will be imported by stock container via http request.
 
-> The overriding design goal for Markdown's
-> formatting syntax is to make it as readable
-> as possible. The idea is that a
-> Markdown-formatted document should be
-> publishable as-is, as plain text, without
-> looking like it's been marked up with tags
-> or formatting instructions.
+![image](./image/cap1.PNG)
 
-This text you see here is *actually* written in Markdown! To get a feel for Markdown's syntax, type some text into the left window and watch the results in the right.
+Below Is The Key Code To Load News Module In Container
 
-### Tech
+```javascript
+  componentDidMount() {
+        // Load Component From Other Server
+        axios.get(`${NEWUI_BASE_URL}/asset-manifest.json`, { headers: {'Cash-Control': 'no-cache'} } )
+        .then(resp => {
+            // Load Js and Css according to asset-manifest.json File
+            const jsFile = resp.data.files['main.js'];
+            const cssFile = resp.data.files['main.css'];
+            this.loadCSS(cssFile);
+            if(resp.data['vendors~main.js']) {
+                this.loadJS(jsFile);
+            }
+            this.loadJS(jsFile);
+        })
 
-Dillinger uses a number of open source projects to work properly:
+        this.getStockInfo(this.props.match.params.stockid);
+    }
 
-* [AngularJS] - HTML enhanced for web apps!
-* [Ace Editor] - awesome web-based text editor
-* [markdown-it] - Markdown parser done right. Fast and easy to extend.
-* [Twitter Bootstrap] - great UI boilerplate for modern web apps
-* [node.js] - evented I/O for the backend
-* [Express] - fast node.js network app framework [@tjholowaychuk]
-* [Gulp] - the streaming build system
-* [Breakdance](https://breakdance.github.io/breakdance/) - HTML to Markdown converter
-* [jQuery] - duh
+    loadCSS = (cssFile) => {
+        let linkTag = document.createElement('link');
+        linkTag.rel = 'stylesheet';
+        linkTag.type = 'text/css';
+        linkTag.href = `${NEWUI_BASE_URL}/${cssFile}`;
+        document.head.appendChild(linkTag);
+    }
 
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
+    loadJS = (jsFile) => {
+        let scriptTag = document.createElement('script');
+        scriptTag.src = `${NEWUI_BASE_URL}${jsFile}`;
 
-### Installation
-
-Dillinger requires [Node.js](https://nodejs.org/) v4+ to run.
-
-Install the dependencies and devDependencies and start the server.
-
-```sh
-$ cd dillinger
-$ npm install -d
-$ node app
+        scriptTag.onload = () => {
+            console.log('scriptTag.onload');
+            this.setState({ Newsui: window.newsui.default });
+        };
+        scriptTag.onreadystatechange = () => {
+            console.log('scriptTag.onreadystatechange');
+        };
+        document.body.appendChild(scriptTag);
+    }
 ```
 
-For production environments...
+Spider API For Stock Information:
 
-```sh
-$ npm install --production
-$ NODE_ENV=production node app
+>The data is great fortune for all companys and individuals. The stock data need paid and the free API cannot meet our requirement. In this situation, spider data from other website is the cheapest way to get stock information. Spiding data give us the more flexibility to get data we want. This is http://stock.hexun.com/ the source data website.
+
+
+The problem how to covert the data format from source website into JSON format suffer me for long time. Below is a samlpe original data (This data is a pain text)
+
+```javascript
+  GetNews([{codeshow:'000004', icbname:'医药与生物科技', industrymore:'http://ggzx.stock.hexun.com/more.jsp?t=2&s=0&k=4570', corpnews:['<li><span>01-22</span><a href="http://stock.hexun.com/2020-01-22/200068908.html" target="_blank" title="华峰氨纶2019年度预计盈利15亿以上较上年同期增长236.91%-304.29%">华峰氨纶2019年度预计盈利15亿以上较上..</a></li>',
+'<li><span>01-20</span><a href="http://stock.hexun.com/2020-01-20/200041474.html" target="_blank" title="中洲控股2019年预计净利6.86亿元–8.87亿元同比增长53.56%-98.56%">中洲控股2019年预计净利6.86亿元–8.87..</a></li>',
+'<li><span>01-18</span><a href="http://stock.hexun.com/2020-01-18/200011825.html" target="_blank" title="国农科技2019年度预计净利250万元—500万元同比增长112%—125%">国农科技2019年度预计净利250万元—500..</a></li>',
+'<li><span>01-16</span><a href="http://stock.hexun.com/2020-01-16/199999635.html" target="_blank" title="上市药企销售费用为何两年激增超千亿？院长落马牵出黑色产业链">上市药企销售费用为何两年激增超千亿？..</a></li>',
+'<li><span>01-16</span><a href="http://stock.hexun.com/2020-01-16/199993101.html" target="_blank" title="瑞泰科技下属公司收到福利企业增值税退税329万元">瑞泰科技下属公司收到福利企业增值税退..</a></li>',
+'<li><span>01-10</span><a href="http://stock.hexun.com/2020-01-10/199927971.html" target="_blank" title="复星医药(02196)：治黑色素瘤新药HLX13获药品临床试验申请受理">复星医药(02196)：治黑色素瘤新药HLX13..</a></li>',
+'<li><span>01-03</span><a href="http://stock.hexun.com/2020-01-03/199864529.html" target="_blank" title="科信技术(300565.SZ)第一大股东张锋峰解除质押1股">科信技术(300565.SZ)第一大股东张锋峰..</a></li>',
+'<li><span>12-27</span><a href="http://stock.hexun.com/2019-12-27/199813403.html" target="_blank" title="中国国航董事曹建雄辞职因到年龄原因">中国国航董事曹建雄辞职因到年龄原因</a></li>'],industrynews:['<li><span>02-15</span><a href="http://shandong.hexun.com/2020-02-15/200301017.html" target="_blank">证监会：A股经受住了疫情考验 部分融..</a></li>',
+'<li><span>02-15</span><a href="http://stock.hexun.com/2020-02-15/200300906.html" target="_blank">证监会副主席阎庆民：鼓励社保等中长..</a></li>',
+'<li><span>02-15</span><a href="http://bank.hexun.com/2020-02-15/200299996.html" target="_blank">商业银行加大信贷投放抗疫  千亿资金..</a></li>',
+'<li><span>02-15</span><a href="http://stock.hexun.com/2020-02-15/200299753.html" target="_blank">证监会五方面举措积极应对疫情 A股经..</a></li>',
+'<li><span>02-15</span><a href="http://stock.hexun.com/2020-02-15/200299758.html" target="_blank">证监会：A股经受住严峻考验 基本回归..</a></li>',
+'<li><span>02-15</span><a href="http://stock.hexun.com/2020-02-15/200299586.html" target="_blank">证监会：引导更多的社会资金流向生产..</a></li>',
+'<li><span>02-15</span><a href="http://news.hexun.com/2020-02-15/200299674.html" target="_blank">抢占科技股赛道先机 中邮科技创新基..</a></li>',
+'<li><span>02-15</span><a href="http://stock.hexun.com/2020-02-15/200299198.html" target="_blank">年报进入披露期 医药、家用电器、建..</a></li>'],report:['<li><span>10-31</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_1207047701.shtml" target="_blank">国农科技：2019年第三季度报告正文</a></li></li>',
+'<li><span>10-31</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_1207047702.shtml" target="_blank">国农科技：2019年第三季度报告全文</a></li></li>',
+'<li><span>08-31</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_1206867964.shtml" target="_blank">国农科技：2019年半年度报告摘要</a></li></li>',
+'<li><span>08-31</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_1206867965.shtml" target="_blank">国农科技：2019年半年度报告</a></li></li>',
+'<li><span>04-26</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_1206104267.shtml" target="_blank">国农科技：2018年年度报告摘要</a></li></li>',
+'<li><span>04-26</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_1206104282.shtml" target="_blank">国农科技：2019年第一季度报告正文</a></li></li>',
+'<li><span>04-26</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_1206104283.shtml" target="_blank">国农科技：2019年第一季度报告全文</a></li></li>',
+'<li><span>04-26</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_1206104284.shtml" target="_blank">国农科技：2018年年度报告</a></li></li>'],ggzy:['<li><span>01-21</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_txt_1207270758.shtml" target="_blank" title="国农科技(000004):简式权益变动报告书（一）">国农科技：简式权益变动报告书（一）</a></li>',
+'<li><span>01-21</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_txt_1207270759.shtml" target="_blank" title="国农科技(000004):简式权益变动报告书（二）">国农科技：简式权益变动报告书（二）</a></li>',
+'<li><span>01-18</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_txt_1207262463.shtml" target="_blank" title="国农科技(000004):中天国富证券有限公司关于公司发行股份购买资产暨关联交易实施情况之独立财务顾问核查意见">国农科技：中天国富证券有限公司关于公..</a></li>',
+'<li><span>01-18</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_txt_1207262464.shtml" target="_blank" title="国农科技(000004):安徽天禾律师事务所关于公司发行股份购买资产暨关联交易之实施情况的法律意见书">国农科技：安徽天禾律师事务所关于公司..</a></li>',
+'<li><span>01-18</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_txt_1207262465.shtml" target="_blank" title="国农科技(000004):验资报告">国农科技：验资报告</a></li>',
+'<li><span>01-18</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_txt_1207262466.shtml" target="_blank" title="国农科技(000004):关于发行股份购买资产相关方承诺事项的公告">国农科技：关于发行股份购买资产相关方..</a></li>',
+'<li><span>01-18</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_txt_1207262467.shtml" target="_blank" title="国农科技(000004):关于公司董事、监事和高级管理人员持股变动情况的公告">国农科技：关于公司董事、监事和高级管..</a></li>',
+'<li><span>01-18</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_txt_1207262468.shtml" target="_blank" title="国农科技(000004):发行股份购买资产暨关联交易实施情况暨新增股份上市公告书">国农科技：发行股份购买资产暨关联交易..</a></li>']}])
 ```
 
-### Plugins
+# What We Can Do Better
 
-Dillinger is currently extended with the following plugins. Instructions on how to use them in your own application are linked below.
+For Front End Part:
+  - How to develop a separated module in a more convenience way (Without launch container)
+  - How to extract the common part of js file from different module into one to save js file traffic
+  - How to manager the custom CSS and shared CSS with different component
 
-| Plugin | README |
-| ------ | ------ |
-| Dropbox | [plugins/dropbox/README.md][PlDb] |
-| GitHub | [plugins/github/README.md][PlGh] |
-| Google Drive | [plugins/googledrive/README.md][PlGd] |
-| OneDrive | [plugins/onedrive/README.md][PlOd] |
-| Medium | [plugins/medium/README.md][PlMe] |
-| Google Analytics | [plugins/googleanalytics/README.md][PlGa] |
-
-
-### Development
-
-Want to contribute? Great!
-
-Dillinger uses Gulp + Webpack for fast developing.
-Make a change in your file and instantaneously see your updates!
-
-Open your favorite Terminal and run these commands.
-
-First Tab:
-```sh
-$ node app
-```
-
-Second Tab:
-```sh
-$ gulp watch
-```
-
-(optional) Third:
-```sh
-$ karma test
-```
-#### Building for source
-For production release:
-```sh
-$ gulp build --prod
-```
-Generating pre-built zip archives for distribution:
-```sh
-$ gulp build dist --prod
-```
-### Docker
-Dillinger is very easy to install and deploy in a Docker container.
-
-By default, the Docker will expose port 8080, so change this within the Dockerfile if necessary. When ready, simply use the Dockerfile to build the image.
-
-```sh
-cd dillinger
-docker build -t joemccann/dillinger:${package.json.version} .
-```
-This will create the dillinger image and pull in the necessary dependencies. Be sure to swap out `${package.json.version}` with the actual version of Dillinger.
-
-Once done, run the Docker image and map the port to whatever you wish on your host. In this example, we simply map port 8000 of the host to port 8080 of the Docker (or whatever port was exposed in the Dockerfile):
-
-```sh
-docker run -d -p 8000:8080 --restart="always" <youruser>/dillinger:${package.json.version}
-```
-
-Verify the deployment by navigating to your server address in your preferred browser.
-
-```sh
-127.0.0.1:8000
-```
-
-#### Kubernetes + Google Cloud
-
-See [KUBERNETES.md](https://github.com/joemccann/dillinger/blob/master/KUBERNETES.md)
-
-
-### Todos
-
- - Write MORE Tests
- - Add Night Mode
-
-License
-----
-
-MIT
-
-
-**Free Software, Hell Yeah!**
-
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-
-
-   [dill]: <https://github.com/joemccann/dillinger>
-   [git-repo-url]: <https://github.com/joemccann/dillinger.git>
-   [john gruber]: <http://daringfireball.net>
-   [df1]: <http://daringfireball.net/projects/markdown/>
-   [markdown-it]: <https://github.com/markdown-it/markdown-it>
-   [Ace Editor]: <http://ace.ajax.org>
-   [node.js]: <http://nodejs.org>
-   [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
-   [jQuery]: <http://jquery.com>
-   [@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
-   [express]: <http://expressjs.com>
-   [AngularJS]: <http://angularjs.org>
-   [Gulp]: <http://gulpjs.com>
-
-   [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-   [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
-   [PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
-   [PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
-   [PlMe]: <https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md>
-   [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
+For Back End Part:
+  - How to manage and setup mutiple process or instance to run spider to make it more effective
+  - How to build up a high performance cash for spider data (How to manage what data should be cache in memory and what should cache in DB)

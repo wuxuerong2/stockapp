@@ -47,6 +47,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="SearchPage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webui/src/SearchPage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1102">
+              <caret line="58" column="135" selection-start-line="58" selection-start-column="135" selection-end-line="58" selection-end-column="135" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webui/src/index.css">
           <provider selected="true" editor-type-id="text-editor">
@@ -56,11 +68,44 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="infoPage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webui/src/infoPage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="29" column="10" lean-forward="true" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="getStockList.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/getStockList.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="349">
+              <caret line="61" column="49" lean-forward="true" selection-end-line="108" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webui/src/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-54">
+              <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+            <state relative-caret-position="2185">
+              <caret line="115" lean-forward="true" selection-start-line="115" selection-end-line="115" />
             </state>
           </provider>
         </entry>
@@ -207,7 +252,7 @@
             <path>
               <item name="stock app" type="b2602c69:ProjectViewProjectNode" />
               <item name="stock app" type="462c0819:PsiDirectoryNode" />
-              <item name="image" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -268,12 +313,12 @@
       <workItem from="1585054227166" duration="69542000" />
       <workItem from="1585325154214" duration="666000" />
       <workItem from="1585352957900" duration="24778000" />
-      <workItem from="1585393929038" duration="7717000" />
+      <workItem from="1585393929038" duration="10417000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102703000" />
+    <option name="totallyTimeSpent" value="105403000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1548" height="832" extended-state="0" />
@@ -287,7 +332,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3281027" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.33095577" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.0" />
       <window_info id="Favorites" order="2" sideWeight="0.5011442" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3748212" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -536,16 +581,6 @@ app.use('/', router);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webui/src/infoPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1233">
-          <caret line="82" column="74" selection-start-line="82" selection-start-column="74" selection-end-line="82" selection-end-column="74" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webui/src/SearchPage.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -572,46 +607,10 @@ app.use('/', router);</expression-string>
         <state relative-caret-position="-741" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webui/src/SearchPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="606">
-          <caret line="58" column="135" selection-start-line="58" selection-start-column="135" selection-end-line="58" selection-end-column="135" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webui/src/serviceWorker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-171">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/getStockList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="102" column="1" selection-start-line="102" selection-start-column="1" selection-end-line="102" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webui/src/banner.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="12" column="42" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webui/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -635,10 +634,56 @@ app.use('/', router);</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/webui/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-54">
+          <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webui/src/serviceWorker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-228">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webui/src/SearchPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1102">
+          <caret line="58" column="135" selection-start-line="58" selection-start-column="135" selection-end-line="58" selection-end-column="135" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webui/src/infoPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="29" column="10" lean-forward="true" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/getStockList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="61" column="49" lean-forward="true" selection-end-line="108" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+        <state relative-caret-position="2185">
+          <caret line="115" lean-forward="true" selection-start-line="115" selection-end-line="115" />
         </state>
       </provider>
     </entry>
