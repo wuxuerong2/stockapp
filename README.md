@@ -1,7 +1,6 @@
 # HSBC STOCK APP
 
-![image](http://m.qpic.cn/psc?/3bbbb1bc-10ad-4949-960b-754c381a6bda/JFx.huugQnT.ko1ZRraxaT4xVUVyxiFEDxVlsaOaiXcg0GaiQboiV6bpyU9dyVb02hlQYvOFdZ70dL629ucKDFOMrDU3wlUYvuIXWzm1A3U!/b&bo=JwUpAwAAAAADJwo!&rf=viewer_4)
-
+![image](./image/cap1.PNG)
 
 This is a stock app provide customer to search stock and get stock related inforamtion.
 
