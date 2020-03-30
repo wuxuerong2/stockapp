@@ -14,6 +14,7 @@
     "express": "^4.17.1",
     "iconv-lite": "^0.5.1",
     "jsdom": "^12.2.0",
+    "nodejs-websocket": "^1.7.2",
     "puppeteer": "^2.1.1"
   }
 }

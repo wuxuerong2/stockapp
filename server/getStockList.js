@@ -6,7 +6,7 @@ const { JSDOM } = require('jsdom');
 const baseURL = "http://www.hexun.com";
 const stockListURL = "http://so.hexun.com"
 const stockNewsURL = "http://dfile.tool.hexun.com"
-
+const newsURL = "http://roll.hexun.com/"
 
 const getStockList = async (keyword) => {
     const browser = await puppeteer.launch({
@@ -17,16 +17,20 @@ const getStockList = async (keyword) => {
     await page.setRequestInterception(true);
     // Skip Load Image
     page.on('request', interceptedRequest => {
-        if (interceptedRequest.url().endsWith('.png') || interceptedRequest.url().endsWith('.jpg') ||
+        if (interceptedRequest.url().endsWith('.png') ||
+            interceptedRequest.url().endsWith('.jpg') ||
+            interceptedRequest.url().endsWith('.css') ||
+            interceptedRequest.url().endsWith('.jsp') ||
             (["script", "image"].indexOf(interceptedRequest.resourceType()) > - 1 && interceptedRequest.url().indexOf("type=all?math") === -1)) {
             interceptedRequest.abort();
         }
-
-        else
+        else{
+            console.log(interceptedRequest.url());
             interceptedRequest.continue();
+        }
+
     });
     await page.goto(baseURL);
-    console.log('go to page http://www.hexun.com/');
     // Get stock query request url
     const stockQueryURL = await page.evaluate(async ({stockListURL, keyword}) => {
         var scriptTag = document.createElement('script');
@@ -102,8 +106,67 @@ const getStockInfo  = async (stockCode) => {
 
 }
 
+const getNews = async () => {
+    const browser = await puppeteer.launch({
+        args:['--no-sandbox', '--disable-setuid-sandbox'],
+        headless: true,
+    });
+    const page = await browser.newPage();
+    await page.setRequestInterception(true);
+    // Skip Load Image
+    page.on('request', interceptedRequest => {
+        if (interceptedRequest.url().endsWith('.png') ||
+            interceptedRequest.url().endsWith('.jpg') ||
+            interceptedRequest.url().endsWith('.css')) {
+            interceptedRequest.abort();
+        }
+        else{
+            interceptedRequest.continue();
+        }
+
+    });
+
+    const newsResp = await page.goto(newsURL);
+    let newsDom = await page.$('#immeList');
+    console.log(`Go to url:${newsURL}`)
+
+    // Format data
+    const html = await newsDom.evaluate(newsDom => newsDom.innerHTML);
+    const DOM = new JSDOM(html);
+    const newsList = [];
+    DOM.window.document.querySelectorAll('li > a').forEach((aDom) => {
+        newsList.push({
+            url: aDom.href,
+            title: aDom.innerHTML
+        });
+    })
+
+    await page.close();
+    await browser.close();
+    return newsList
+}
+
+const getIndex = async () => {
+    console.log('getIndex from http://webstock.quote.hermes.hexun.com')
+    const indexText = await new Promise((resolve, reject) => {
+        request.get('http://webstock.quote.hermes.hexun.com/gb/a/quotelist?code=sse000001,szse399001,sse000011,szse399305,SSE000012,SSE000013&column=code,name,price,updownrate,priceweight&callback=getdata',{},async function(err,res,body){
+            if(res.statusCode === 200 ) {
+                let indexText;
+                const getdata = (data) => { indexText = data }
+                eval(res.body);
+                resolve(indexText);
+            }
+
+        });
+    })
+    return indexText;
+}
+
+
 module.exports = {
     getStockList,
     getStockNews,
-    getStockInfo
+    getStockInfo,
+    getNews,
+    getIndex
 };

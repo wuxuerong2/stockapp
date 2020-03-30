@@ -1,6 +1,19 @@
 # HSBC STOCK APP
 
-This is a stock app provide customer to search stock and get stock related inforamtion.
+This is a stock app provide customer to search stock and get stock related inforamtion. I have acheive below function and feature in this app.
+
+  - Show the stock index rate and real time update the index rate by websocket
+  - Show the latest hot economic news in home page
+  - Searh stock by name or ID
+  - Recommand stock to user according to user input
+  - Show K chart for selected stock
+  - Show main ecomoc info of for selected stock
+  - Show related news for selected stock
+  - Auto adjust app to PC or mobile by flex layout
+  - This app already deploy to Aliyun server and it can be accessed by Internet (Please ping me if you want to access it via internet. I keep the server in shutdown status now because the server is charged by usage)
+
+![image](./image/cap2.PNG)
+![image](./image/cap3.PNG)
 
 # Technical Stack
 
@@ -13,6 +26,7 @@ This is a stock app provide customer to search stock and get stock related infor
 
   - Front end micro service
   - Spider API for stock information
+  - Recommand Stock To User According To User Input
 
 Front End Micro Service:
 >We always feel painful when there are many guys work on same project and wait for master branch to release our change to production. It will be nightmare for a huge project which bind all logic into one component. For backend, we work out a concept "micro service" to solve above problems.This give me tips that why I cannot do this in front end development
@@ -103,6 +117,10 @@ The problem how to covert the data format from source website into JSON format s
 '<li><span>01-18</span><a href="http://stockdata.stock.hexun.com/txt/stock_detail_txt_1207262468.shtml" target="_blank" title="国农科技(000004):发行股份购买资产暨关联交易实施情况暨新增股份上市公告书">国农科技：发行股份购买资产暨关联交易..</a></li>']}])
 ```
 
+Recommand Stock To User
+>In order to provide a powerful search funciton to user, this stock app uses the big data to recommand stock to user according to user related big data. We use third party data reousce to achieve this for demo purpose.
+
+
 # What We Can Do Better
 
 For Front End Part:
@@ -113,3 +131,4 @@ For Front End Part:
 For Back End Part:
   - How to manage and setup mutiple process or instance to run spider to make it more effective
   - How to build up a high performance cash for spider data (How to manage what data should be cache in memory and what should cache in DB)
+ - How to collect user related info and train up our stock recommand model.
