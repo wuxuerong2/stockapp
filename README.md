@@ -12,8 +12,10 @@ This is a stock app provide customer to search stock and get stock related infor
   - Auto adjust app to PC or mobile by flex layout
   - This app already deploy to Aliyun server and it can be accessed by Internet (Please ping me if you want to access it via internet. I keep the server in shutdown status now because the server is charged by usage)
 
-![image](./image/cap2.PNG)
-![image](./image/cap3.PNG)
+
+<img src=./image/cap2.PNG "markdown" width="400" height="722" /> <img src=./image/cap2.PNG "markdown" width="400" height="722" />
+
+
 
 # Technical Stack
 

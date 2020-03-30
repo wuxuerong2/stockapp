@@ -66,7 +66,7 @@
         <entry file="file://$PROJECT_DIR$/webui/src/infoPage.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-19">
-              <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+              <caret line="85" selection-start-line="85" selection-end-line="85" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -77,8 +77,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
+            <state relative-caret-position="285">
+              <caret line="15" column="129" selection-start-line="15" selection-start-column="129" selection-end-line="15" selection-end-column="129" />
             </state>
           </provider>
         </entry>
@@ -349,12 +349,12 @@
       <workItem from="1585054227166" duration="69542000" />
       <workItem from="1585325154214" duration="666000" />
       <workItem from="1585352957900" duration="24778000" />
-      <workItem from="1585393929038" duration="44992000" />
+      <workItem from="1585393929038" duration="45513000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139978000" />
+    <option name="totallyTimeSpent" value="140499000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1548" height="832" extended-state="0" />
@@ -712,7 +712,7 @@ app.use('/', router);</expression-string>
     <entry file="file://$PROJECT_DIR$/webui/src/infoPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-19">
-          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -721,8 +721,8 @@ app.use('/', router);</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
+        <state relative-caret-position="285">
+          <caret line="15" column="129" selection-start-line="15" selection-start-column="129" selection-end-line="15" selection-end-column="129" />
         </state>
       </provider>
     </entry>
